@@ -4,7 +4,7 @@ jobs:
   build:
     name: Build Linux with autobuild
     if: github.repository_owner_id == '7522059'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - uses: secondlife/action-autobuild@v4
