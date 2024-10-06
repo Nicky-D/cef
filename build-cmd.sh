@@ -218,7 +218,7 @@ case "$AUTOBUILD_PLATFORM" in
 
     linux64)
         mkdir -p mkdir cef/{automate,chromium_git}
-        test -f cef/automate/automate-git.py || curl https://bitbucket.org/chromiumembedded/cef/raw/master/tools/automate/automate-git.py >cef/automate/automate-git.py
+        test -f cef/automate/automate-git.py || curl https://bitbucket.org/chromiumembedded/cef/raw/${cef_branch_number}/tools/automate/automate-git.py >cef/automate/automate-git.py
 
         if [ ! -d cef/depot_tools ]
         then
