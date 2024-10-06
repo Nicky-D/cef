@@ -255,7 +255,7 @@ case "$AUTOBUILD_PLATFORM" in
 
         cef_distrib_subdir="cef_binary_linux-$AUTOBUILD_ADDRSIZE"
         python ../automate/automate-git.py --download-dir=`pwd` --depot-tools-dir=${top}/depot_tools --no-depot-tools-update --branch=${cef_branch_number}  --force-build --x64-build \
-            --no-debug-tests --no-release-tests --no-distrib-docs ${build_distrib}  ${no_debug_build} ${build_target} --distrib-subdir="${cef_distrib_subdir}"
+            --no-debug-tests --no-release-tests --no-distrib-docs ${build_distrib}  ${no_debug_build} ${build_target} --distrib-subdir="${cef_distrib_subdir}" --with-pgo-profiles
 
         if [ ${build_client_distrib} -eq 1 ]
         then
