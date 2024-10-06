@@ -1,2 +1,4 @@
 stage
 .DS_Store
+depot_tools/
+cef/
