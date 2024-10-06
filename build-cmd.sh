@@ -218,22 +218,18 @@ case "$AUTOBUILD_PLATFORM" in
 
     linux64)
         mkdir -p mkdir cef/{automate,chromium_git}
-        test -f cef/automate/automate-git.py || curl https://bitbucket.org/chromiumembedded/cef/raw/${cef_branch_number}/tools/automate/automate-git.py >cef/automate/automate-git.py
-
-        if [ ! -d cef/depot_tools ]
-        then
-            pushd cef
-            git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-            popd
-        fi
+        test -f cef/automate/automate-git.py || rm cef/automate/automate-git.py
+        curl https://bitbucket.org/chromiumembedded/cef/raw/${cef_branch_number}/tools/automate/automate-git.py >cef/automate/automate-git.py
 
         cd cef/chromium_git
-        export PATH=`pwd`/cef/depot_tools:$PATH
+        export PATH="${top}/depot_tools:$PATH"
         export GN_DEFINES="is_official_build=true use_sysroot=true use_allocator=none symbol_level=${symbol_level} is_cfi=false use_thin_lto=false"
         export GN_DEFINES="${GN_DEFINES} ffmpeg_branding=Chrome use_gtk=false use_system_libdrm=false use_system_minigbm=false"
         # in case of getting problems wiwth the ozone layer, it can be disabled like this
         export GN_DEFINES_="${GN_DEFINES} use_ozone=false"
         export GN_DEFINES_="${GN_DEFINES} ozone_platform_wayland=false ozone_platform_x11=true"
+
+        DEPOT_TOOLS=`pwd`"/chromium/src/third_party/depot_tools"
 
         if [ $use_proprietary_codecs -eq 1 ]
         then
@@ -258,7 +254,7 @@ case "$AUTOBUILD_PLATFORM" in
         fi
 
         cef_distrib_subdir="cef_binary_linux-$AUTOBUILD_ADDRSIZE"
-        python ../automate/automate-git.py --download-dir=`pwd` --depot-tools-dir=${top}/depot_tools --branch=${cef_branch_number}  --force-build --x64-build \
+        python ../automate/automate-git.py --download-dir=`pwd` --depot-tools-dir=${top}/depot_tools --no-depot-tools-update --branch=${cef_branch_number}  --force-build --x64-build \
             --no-debug-tests --no-release-tests --no-distrib-docs ${build_distrib}  ${no_debug_build} ${build_target} --distrib-subdir="${cef_distrib_subdir}"
 
         if [ ${build_client_distrib} -eq 1 ]
