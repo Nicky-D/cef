@@ -223,11 +223,11 @@ case "$AUTOBUILD_PLATFORM" in
 
         cd cef/chromium_git
         export PATH="${top}/depot_tools:$PATH"
-        export GN_DEFINES="is_official_build=true use_sysroot=true use_allocator=none symbol_level=${symbol_level} is_cfi=false use_thin_lto=false"
+        export GN_DEFINES="is_official_build=true use_allocator=none symbol_level=${symbol_level} is_cfi=false use_thin_lto=false"
         export GN_DEFINES="${GN_DEFINES} ffmpeg_branding=Chrome use_gtk=false use_system_libdrm=false use_system_minigbm=false"
         # in case of getting problems wiwth the ozone layer, it can be disabled like this
-        export GN_DEFINES_="${GN_DEFINES} use_ozone=false"
-        export GN_DEFINES_="${GN_DEFINES} ozone_platform_wayland=false ozone_platform_x11=true"
+        #export GN_DEFINES_="${GN_DEFINES} use_ozone=false"
+        #export GN_DEFINES_="${GN_DEFINES} ozone_platform_wayland=false ozone_platform_x11=true"
 
         DEPOT_TOOLS=`pwd`"/chromium/src/third_party/depot_tools"
 
